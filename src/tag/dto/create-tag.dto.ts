@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNumber, IsDate, IsOptional } from 'class-validator';
 
-export class CreateArtDto {
+export class CreateTagDto {
   @ApiProperty({ description: '작가 ID번호' })
   @IsNumber()
   readonly author: number;

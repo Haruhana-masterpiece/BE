@@ -3,30 +3,30 @@ import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Arts, ArtsDocument } from './schemas/arts.schema';
+import { Author, AuthorDocument } from './schemas/author.schema';
 import { Model } from 'mongoose';
-import { CreateArtDto } from './dto/create-art.dto';
+import { CreateAuthorDto } from './dto/create-author.dto';
 
 @Injectable()
-export class ArtsService {
+export class AuthorService {
   constructor(
     @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: WinstonLogger,
-    @InjectModel(Arts.name) private artsModel: Model<ArtsDocument>,
+    @InjectModel(Author.name) private authorModel: Model<AuthorDocument>,
   ) {}
 
-  async createArt(artData: CreateArtDto) {
+  async createAuthor(authorData: CreateAuthorDto) {
     try {
-      const artwork: Arts = await this.artsModel.create(artData);
-      return artwork;
+      const author: Author = await this.authorModel.create(authorData);
+      return author;
     } catch (err) {
       this.logger.error('Error', { err: err });
     }
   }
 
-  async getArts() {
+  async getAuthors() {
     try {
-      const arts: Arts[] = await this.artsModel.find();
-      return arts;
+      const authors: Author[] = await this.authorModel.find();
+      return authors;
     } catch (err) {
       this.logger.error('Error', { err: err });
     }

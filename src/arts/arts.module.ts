@@ -8,6 +8,6 @@ import { ArtsSchema, Arts } from './schemas/arts.schema';
   imports: [MongooseModule.forFeature([{ name: Arts.name, schema: ArtsSchema }])],
   controllers: [ArtsController],
   providers: [ArtsService],
-  // exports: [ArtsService],
+  exports: [ArtsService],
 })
 export class ArtsModule {}
