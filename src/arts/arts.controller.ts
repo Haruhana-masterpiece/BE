@@ -4,7 +4,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiCreatedResponse } from '@nestjs/
 
 import { HttpStatus, Controller, Inject, Get, Post, Body } from '@nestjs/common';
 import { ArtsService } from './arts.service';
-import { CreateArtDto } from './dto/create-art.dto';
+import { CreateArtDto } from './dto';
 
 @Controller('api/arts')
 @ApiTags('작품 API')
@@ -19,7 +19,7 @@ export class ArtsController {
   @ApiCreatedResponse({ description: '작품 생성' /*type: Arts*/ })
   async createOne(@Body() artData: CreateArtDto) {
     this.logger.info('Calling createOne()', { controller: ArtsController.name });
-    return this.artsService.createArt(artData);
+    return this.artsService.create(artData);
   }
 
   @Get()
@@ -27,6 +27,6 @@ export class ArtsController {
   @ApiCreatedResponse({ description: '작품 목록 조회' /*type: Arts*/ })
   async getMany() {
     this.logger.info('Calling getMany()', { controller: ArtsController.name });
-    return this.artsService.getArts();
+    return this.artsService.findAll();
   }
 }

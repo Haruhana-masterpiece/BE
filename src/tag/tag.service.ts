@@ -14,7 +14,7 @@ export class TagService {
     @InjectModel(Tag.name) private tagModel: Model<TagDocument>,
   ) {}
 
-  async createTag(tagData: CreateTagDto) {
+  public async create(tagData: CreateTagDto) {
     try {
       const tag: Tag = await this.tagModel.create(tagData);
       return tag;
@@ -23,7 +23,7 @@ export class TagService {
     }
   }
 
-  async getTags() {
+  public async findAll() {
     try {
       const tags: Tag[] = await this.tagModel.find();
       return tags;

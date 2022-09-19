@@ -14,7 +14,7 @@ export class AuthorService {
     @InjectModel(Author.name) private authorModel: Model<AuthorDocument>,
   ) {}
 
-  async createAuthor(authorData: CreateAuthorDto) {
+  public async create(authorData: CreateAuthorDto) {
     try {
       const author: Author = await this.authorModel.create(authorData);
       return author;
@@ -23,7 +23,7 @@ export class AuthorService {
     }
   }
 
-  async getAuthors() {
+  public async findAll() {
     try {
       const authors: Author[] = await this.authorModel.find();
       return authors;

@@ -11,10 +11,10 @@ import { CreateArtDto } from './dto/create-art.dto';
 export class ArtsService {
   constructor(
     @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: WinstonLogger,
-    @InjectModel(Arts.name) private artsModel: Model<ArtsDocument>,
+    @InjectModel(Arts.name) private readonly artsModel: Model<ArtsDocument>,
   ) {}
 
-  async createArt(artData: CreateArtDto) {
+  public async create(artData: CreateArtDto): Promise<Arts> {
     try {
       const artwork: Arts = await this.artsModel.create(artData);
       return artwork;
@@ -23,7 +23,7 @@ export class ArtsService {
     }
   }
 
-  async getArts() {
+  public async findAll(): Promise<Arts[]> {
     try {
       const arts: Arts[] = await this.artsModel.find();
       return arts;

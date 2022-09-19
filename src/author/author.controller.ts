@@ -4,7 +4,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiCreatedResponse } from '@nestjs/
 
 import { HttpStatus, Controller, Inject, Get, Post, Body } from '@nestjs/common';
 import { AuthorService } from './author.service';
-import { CreateAuthorDto } from './dto/create-author.dto';
+import { CreateAuthorDto } from './dto';
 
 @Controller('api/authors')
 @ApiTags('작가 API')
@@ -19,7 +19,7 @@ export class AuthorController {
   @ApiCreatedResponse({ description: '작가 추가' /*type: Author*/ })
   async createOne(@Body() tagData: CreateAuthorDto) {
     this.logger.info('Calling createOne()', { controller: AuthorController.name });
-    return this.authorService.createAuthor(tagData);
+    return this.authorService.create(tagData);
   }
 
   @Get()
@@ -27,6 +27,6 @@ export class AuthorController {
   @ApiCreatedResponse({ description: '작가 목록 조회' /*type: Author*/ })
   async getMany() {
     this.logger.info('Calling getMany()', { controller: AuthorController.name });
-    return this.authorService.getAuthors();
+    return this.authorService.findAll();
   }
 }

@@ -10,6 +10,9 @@ export class Tag {
   @Prop({ required: true })
   name: string;
 
+  @Prop()
+  description: string;
+
   @Prop({ default: new Date(), type: mongoose.Schema.Types.Date })
   createdAt: Date;
 

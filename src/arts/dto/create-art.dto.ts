@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNumber, IsDate, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsDate, IsOptional } from 'class-validator';
 
 export class CreateArtDto {
   @ApiProperty({ description: '작가 ID번호' })
-  @IsNumber()
-  readonly author: number;
+  @IsString()
+  readonly author: string;
 
   @ApiProperty({ description: '작품명' })
   @IsString()
@@ -19,7 +19,7 @@ export class CreateArtDto {
   readonly image: string;
 
   // 배열이면 each true, 옵션값이면 IsOptional 사용
-  @ApiProperty({ description: '태그들' })
+  @ApiProperty({ description: '태그 ID번호들' })
   @IsOptional()
   @IsString({ each: true })
   readonly tags: string[];
