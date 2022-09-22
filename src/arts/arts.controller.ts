@@ -2,9 +2,9 @@ import { Logger as WinstonLogger } from 'winston';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { ApiTags, ApiOperation, ApiResponse, ApiCreatedResponse } from '@nestjs/swagger';
 
-import { HttpStatus, Controller, Inject, Get, Post, Body } from '@nestjs/common';
+import { HttpStatus, Controller, Inject, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ArtsService } from './arts.service';
-import { CreateArtDto } from './dto';
+import { CreateArtDto, UpdateArtDto } from './dto';
 
 @Controller('api/arts')
 @ApiTags('작품 API')
@@ -28,5 +28,29 @@ export class ArtsController {
   async getMany() {
     this.logger.info('Calling getMany()', { controller: ArtsController.name });
     return this.artsService.findAll();
+  }
+
+  @Get('/:artsId')
+  @ApiOperation({ summary: '작품 상세 조회 API', description: '작품 상세를 조회한다.' })
+  @ApiCreatedResponse({ description: '작품 상세 조회' })
+  async getOne(@Param('artsId') artsId: number) {
+    this.logger.info('Calling getOne()', { controller: ArtsController.name });
+    return this.artsService.findOne(artsId);
+  }
+
+  @Patch('/:artsId')
+  @ApiOperation({ summary: '작품 수정 API', description: '작품을 수정한다.' })
+  @ApiCreatedResponse({ description: '작품 수정' })
+  async patch(@Param('artsId') artsId: number, @Body() updateData: UpdateArtDto) {
+    this.logger.info('Calling patch()', { controller: ArtsController.name });
+    return this.artsService.update(artsId, updateData);
+  }
+
+  @Delete('/:artsId')
+  @ApiOperation({ summary: '작품 삭제 API', description: '작품을 삭제한다.' })
+  @ApiCreatedResponse({ description: '작품 삭제' })
+  async delete(@Param('artsId') artsId: number) {
+    this.logger.info('Calling delete()', { controller: ArtsController.name });
+    return this.artsService.delete(artsId);
   }
 }
