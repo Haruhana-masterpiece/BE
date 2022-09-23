@@ -16,7 +16,7 @@ export class CreateArtDto {
 
   @ApiProperty({ description: '작품 이미지' })
   @IsNumber()
-  readonly image: string;
+  image: string;
 
   // 배열이면 each true, 옵션값이면 IsOptional 사용
   @ApiProperty({ description: '태그 ID번호들' })

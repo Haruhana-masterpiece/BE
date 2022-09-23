@@ -5,6 +5,7 @@ import { ArtsModule } from './arts/arts.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TagModule } from './tag/tag.module';
 import { AuthorModule } from './author/author.module';
+import { UploadsModule } from './uploads/uploads.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AuthorModule } from './author/author.module';
     ArtsModule,
     AuthorModule,
     TagModule,
+    UploadsModule,
   ],
   controllers: [],
   providers: [],
