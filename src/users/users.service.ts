@@ -1,32 +1,64 @@
-import { Injectable } from '@nestjs/common';
-import { UsersLoginDto } from './dto/users-login.dto';
-import { UsersRegisterDto } from './dto/users-register.dto';
-import { UsersUpdateDto } from './dto/users-update.dto';
+import { Model } from 'mongoose';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import * as bcrypt from 'bcrypt';
+import { Users, UsersDocument } from './schemas/users.schema';
+import { UsersDto } from './dto/users.dto';
 
 @Injectable()
 export class UsersService {
-  async register(usersRegisterDto: UsersRegisterDto) {
-    const { email, name, password, phone } = usersRegisterDto;
-    await this.checkUserExists(email);
-    await this.saveUser(email, name, password, phone);
+  constructor(@InjectModel(Users.name) private usersModel: Model<UsersDocument>) {}
+
+  // 회원가입
+  async register(usersDto: UsersDto): Promise<Users> {
+    try {
+      const isExists = await this.usersModel.exists({ email: usersDto.email });
+      if (isExists) {
+        throw new UnprocessableEntityException('해당 이메일은 이미 가입되어 있습니다.');
+      }
+      usersDto.password = await bcrypt.hash(usersDto.password, 10);
+
+      return await this.usersModel.create(usersDto);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  async login(usersLoginDto: UsersLoginDto) {
-    const { email, password } = usersLoginDto;
+  // 로그인
+  async login(usersDto: UsersDto): Promise<void> {
     // TODO
     // 1. email, password를 가진 유저가 존재하는지 DB에서 확인하고 없다면 에러 처리
     // 2. JWT를 발급
   }
 
-  findAll() {
-    return `This action returns all users`;
+  // 사용자 목록 조회
+  async findAll(): Promise<Users[]> {
+    try {
+      return await this.usersModel.find();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  // 사용자 수
+  async countUsers(): Promise<number> {
+    try {
+      return 0;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  update(id: number, usersUpdateDto: UsersUpdateDto) {
+  // 사용자 상세 정보
+  async findOne(id: number) {
+    try {
+      return await this.usersModel.findById(id);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  update(id: number, usersUpdateDto) {
     return `This action updates a #${id} user`;
   }
 
@@ -34,11 +66,5 @@ export class UsersService {
     return `This action removes a #${id} user`;
   }
 
-  private checkUserExists(email: string) {
-    return false; // TODO: DB 연동 후 구현
-  }
-
-  private saveUser(email: string, name: string, password: string, phone: string) {
-    return; // TODO: DB 연동 후 구현
-  }
+  async;
 }
