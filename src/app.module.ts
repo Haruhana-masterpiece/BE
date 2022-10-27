@@ -3,6 +3,7 @@ import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-win
 import { Module } from '@nestjs/common';
 import { ArtsModule } from './arts/arts.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UsersModule } from './users/users.module';
 import { TagModule } from './tag/tag.module';
 import { AuthorModule } from './author/author.module';
 import { UploadsModule } from './uploads/uploads.module';
@@ -23,6 +24,7 @@ import { UploadsModule } from './uploads/uploads.module';
         }),
       ],
     }),
+    UsersModule,
     ArtsModule,
     AuthorModule,
     TagModule,
