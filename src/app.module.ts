@@ -4,11 +4,13 @@ import { Module } from '@nestjs/common';
 import { ArtsModule } from './arts/arts.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
+import { TagModule } from './tag/tag.module';
+import { AuthorModule } from './author/author.module';
+import { UploadsModule } from './uploads/uploads.module';
 
 @Module({
   imports: [
     MongooseModule.forRoot(process.env.MONGODB_ATLAS_URL),
-    ArtsModule,
     WinstonModule.forRoot({
       transports: [
         new winston.transports.File({ filename: 'error.log', level: 'error' }),
@@ -23,6 +25,10 @@ import { UsersModule } from './users/users.module';
       ],
     }),
     UsersModule,
+    ArtsModule,
+    AuthorModule,
+    TagModule,
+    UploadsModule,
   ],
   controllers: [],
   providers: [],
