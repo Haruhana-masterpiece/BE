@@ -26,6 +26,7 @@
     "@nestjs/mongoose": "^9.2.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.1.1",
+    "aws-sdk": "^2.1221.0",
     "class-validator": "^0.13.2",
     "dotenv": "^16.0.2",
     "mongoose": "^6.5.4",

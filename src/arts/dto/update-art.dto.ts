@@ -1,7 +1,8 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsNumber, IsDate, IsOptional } from 'class-validator';
+import { CreateArtDto } from './create-art.dto';
 
-export class CreateArtDto {
+export class UpdateArtDto extends PartialType(CreateArtDto) {
   @ApiProperty({ description: '작가 ID번호' })
   @IsString()
   readonly author: string;
@@ -28,11 +29,6 @@ export class CreateArtDto {
   @IsOptional()
   @IsDate()
   readonly paintedAt: Date;
-
-  @ApiProperty({ description: '작품 등록일' })
-  @IsOptional()
-  @IsDate()
-  readonly createdAt: Date;
 
   @ApiProperty({ description: '작품 수정일' })
   @IsOptional()
